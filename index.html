@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Wedding Charades</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>💍 Wedding Charades 💍</h1>
+        <div class="word-display" id="wordDisplay">
+            <p>Click "Get Word" to start!</p>
+        </div>
+        <button id="newWordBtn" class="btn">Get Word</button>
+        <div class="score-buttons" id="scoreButtons" style="display: none;">
+            <button id="correctBtn" class="btn btn-correct">✓ Correct</button>
+            <button id="incorrectBtn" class="btn btn-incorrect">✗ Incorrect</button>
+        </div>
+        <div class="info">
+            <div class="score-display">
+                <p>Score: <span id="correctCount">0</span> correct, <span id="incorrectCount">0</span> incorrect</p>
+            </div>
+            <p>Words remaining: <span id="wordCount">0</span></p>
+            <button id="resetBtn" class="btn btn-secondary">Reset Game</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
