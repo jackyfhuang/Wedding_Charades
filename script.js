@@ -304,20 +304,20 @@ let incorrectCount = 0;
 let selectedCategories = [];
 let gameStarted = false;
 
-const categorySelection = document.getElementById('categorySelection');
-const gameContainer = document.getElementById('gameContainer');
-const wordDisplay = document.getElementById('wordDisplay');
-const newWordBtn = document.getElementById('newWordBtn');
-const resetBtn = document.getElementById('resetBtn');
-const wordCount = document.getElementById('wordCount');
-const scoreButtons = document.getElementById('scoreButtons');
-const correctBtn = document.getElementById('correctBtn');
-const incorrectBtn = document.getElementById('incorrectBtn');
-const correctCountDisplay = document.getElementById('correctCount');
-const incorrectCountDisplay = document.getElementById('incorrectCount');
-const startGameBtn = document.getElementById('startGameBtn');
-const selectAllBtn = document.getElementById('selectAllBtn');
-const deselectAllBtn = document.getElementById('deselectAllBtn');
+let categorySelection;
+let gameContainer;
+let wordDisplay;
+let newWordBtn;
+let resetBtn;
+let wordCount;
+let scoreButtons;
+let correctBtn;
+let incorrectBtn;
+let correctCountDisplay;
+let incorrectCountDisplay;
+let startGameBtn;
+let selectAllBtn;
+let deselectAllBtn;
 
 // Shuffle array function
 function shuffleArray(array) {
@@ -396,6 +396,11 @@ function getWordsFromCategories(categories) {
 // Initialize category selection UI
 function initializeCategorySelection() {
     const categoryContainer = document.getElementById('categoryCheckboxes');
+    if (!categoryContainer) {
+        console.error('categoryCheckboxes element not found');
+        return;
+    }
+    
     categoryContainer.innerHTML = '';
     
     Object.keys(wordCategories).forEach(category => {
@@ -427,11 +432,13 @@ function updateSelectedCategories() {
         .map(cb => cb.value);
     
     // Update start button state
-    startGameBtn.disabled = selectedCategories.length === 0;
-    if (selectedCategories.length === 0) {
-        startGameBtn.textContent = 'Select at least one category';
-    } else {
-        startGameBtn.textContent = `Start Game (${getWordsFromCategories(selectedCategories).length} words)`;
+    if (startGameBtn) {
+        startGameBtn.disabled = selectedCategories.length === 0;
+        if (selectedCategories.length === 0) {
+            startGameBtn.textContent = 'Select at least one category';
+        } else {
+            startGameBtn.textContent = `Start Game (${getWordsFromCategories(selectedCategories).length} words)`;
+        }
     }
 }
 
@@ -485,14 +492,50 @@ function updateWordCount() {
     wordCount.textContent = remainingWords.length;
 }
 
-// Event listeners
-newWordBtn.addEventListener('click', getRandomWord);
-resetBtn.addEventListener('click', resetGame);
-correctBtn.addEventListener('click', markCorrect);
-incorrectBtn.addEventListener('click', markIncorrect);
-startGameBtn.addEventListener('click', startGame);
-selectAllBtn.addEventListener('click', selectAllCategories);
-deselectAllBtn.addEventListener('click', deselectAllCategories);
+// Initialize DOM elements and set up event listeners
+function initializeDOM() {
+    // Get all DOM elements
+    categorySelection = document.getElementById('categorySelection');
+    gameContainer = document.getElementById('gameContainer');
+    wordDisplay = document.getElementById('wordDisplay');
+    newWordBtn = document.getElementById('newWordBtn');
+    resetBtn = document.getElementById('resetBtn');
+    wordCount = document.getElementById('wordCount');
+    scoreButtons = document.getElementById('scoreButtons');
+    correctBtn = document.getElementById('correctBtn');
+    incorrectBtn = document.getElementById('incorrectBtn');
+    correctCountDisplay = document.getElementById('correctCount');
+    incorrectCountDisplay = document.getElementById('incorrectCount');
+    startGameBtn = document.getElementById('startGameBtn');
+    selectAllBtn = document.getElementById('selectAllBtn');
+    deselectAllBtn = document.getElementById('deselectAllBtn');
+    
+    // Check if all elements exist
+    if (!categorySelection || !gameContainer || !wordDisplay || !newWordBtn || 
+        !resetBtn || !wordCount || !scoreButtons || !correctBtn || !incorrectBtn ||
+        !correctCountDisplay || !incorrectCountDisplay || !startGameBtn || 
+        !selectAllBtn || !deselectAllBtn) {
+        console.error('Some DOM elements are missing');
+        return;
+    }
+    
+    // Set up event listeners
+    newWordBtn.addEventListener('click', getRandomWord);
+    resetBtn.addEventListener('click', resetGame);
+    correctBtn.addEventListener('click', markCorrect);
+    incorrectBtn.addEventListener('click', markIncorrect);
+    startGameBtn.addEventListener('click', startGame);
+    selectAllBtn.addEventListener('click', selectAllCategories);
+    deselectAllBtn.addEventListener('click', deselectAllCategories);
+    
+    // Initialize category selection
+    initializeCategorySelection();
+}
 
-// Initialize
-initializeCategorySelection();
+// Wait for DOM to be fully loaded
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeDOM);
+} else {
+    // DOM is already loaded
+    initializeDOM();
+}
