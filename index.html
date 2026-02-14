@@ -9,36 +9,20 @@
 <body>
     <div class="container">
         <h1>💍 Wedding Charades 💍</h1>
-        
-        <!-- Category Selection Screen -->
-        <div id="categorySelection">
-            <h2>Select Categories</h2>
-            <p class="category-instructions">Choose which categories you'd like to play with:</p>
-            <div class="category-controls">
-                <button id="selectAllBtn" class="btn btn-small">Select All</button>
-                <button id="deselectAllBtn" class="btn btn-small">Deselect All</button>
-            </div>
-            <div id="categoryCheckboxes" class="category-checkboxes"></div>
-            <button id="startGameBtn" class="btn btn-large">Start Game</button>
+        <div class="word-display" id="wordDisplay">
+            <p>Click "Get Word" to start!</p>
         </div>
-        
-        <!-- Game Screen -->
-        <div id="gameContainer" style="display: none;">
-            <div class="word-display" id="wordDisplay">
-                <p>Click "Get Word" to start!</p>
+        <button id="newWordBtn" class="btn">Get Word</button>
+        <div class="score-buttons" id="scoreButtons" style="display: none;">
+            <button id="correctBtn" class="btn btn-correct">✓ Correct</button>
+            <button id="incorrectBtn" class="btn btn-incorrect">✗ Incorrect</button>
+        </div>
+        <div class="info">
+            <div class="score-display">
+                <p>Score: <span id="correctCount">0</span> correct, <span id="incorrectCount">0</span> incorrect</p>
             </div>
-            <button id="newWordBtn" class="btn">Get Word</button>
-            <div class="score-buttons" id="scoreButtons" style="display: none;">
-                <button id="correctBtn" class="btn btn-correct">✓ Correct</button>
-                <button id="incorrectBtn" class="btn btn-incorrect">✗ Incorrect</button>
-            </div>
-            <div class="info">
-                <div class="score-display">
-                    <p>Score: <span id="correctCount">0</span> correct, <span id="incorrectCount">0</span> incorrect</p>
-                </div>
-                <p>Words remaining: <span id="wordCount">0</span></p>
-                <button id="resetBtn" class="btn btn-secondary">Change Categories</button>
-            </div>
+            <p>Words remaining: <span id="wordCount">0</span></p>
+            <button id="resetBtn" class="btn btn-secondary">Reset Game</button>
         </div>
     </div>
     <script src="script.js"></script>
